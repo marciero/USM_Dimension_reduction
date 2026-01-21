@@ -1,0 +1,211 @@
+---
+title: "'Manual' Principal Components Regression"
+format: 
+    html:
+        embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+library(faraway)     ### We will look at the savings data.
+library(tidyverse)
+
+library(broom)
+
+
+```
+
+
+
+We perform principal components regression "manually" following the development in the handout _Principal Components Regression_. We will use data and example from Ch 9 Faraway _Practical ANOVA and Regression with R_  
+
+Consider the `longley` data. 
+
+
+
+```{r echo = TRUE, eval = FALSE}
+?longley
+View(longley)
+```
+
+## "Employed" as the response; others as predictors
+
+
+* Scale the data 
+* Pairwise correlations?
+* Find eigen decomposition of data matrix X-the eigen values and vectors of $X^TX$
+
+
+________
+
+* Size of the eigen values?
+* Norm of the eigen vectors?
+* Are they orthogonal?
+* What happens if we don't scale?
+
+
+________
+
+
+## Find eigendecomposition of correlations and compare. 
+
+* What's the same and what's different? 
+   (Recall relationship of correlations to $X^T X$)
+* Conditioning number? 
+
+```{r echo = TRUE}
+x <- longley[,-7] %>% scale(center = TRUE, scale = TRUE)   ## scale the data
+
+xx <- cor(x)
+xxeig <- eigen(xx)
+
+```
+___
+
+* Eigen vectors of scaled $X^T X$ and those of `cor(X)` are equal
+* Eigen values will differ by factor of $\frac{1}{n-1}$
+ (due to the averaging of the $x_i^T x_j$ )
+* So both are equal if we use $\frac{1}{n-1}X^T X$
+* Does it make a difference which we use? 
+
+__________
+
+* Eigen value corresponding to a principal component gives the variance of the data along that component
+
+_______
+
+We add column and row names 
+
+```{r  echo = TRUE}
+
+colnames(xxeig$vectors) <- paste("PC",1:6)  ## label the rows and columns
+rownames(xxeig$vectors) <- colnames(longley[1:6])  
+
+xxeig
+
+```
+
+The above can be done automatically with `prcomp()` function from `stats` package that comes with base R
+
+```{r}
+prcomp(x)
+
+```
+
+
+## Now form the transformed predictors. 
+
+```{r echo=TRUE}
+
+z_mat <- as.matrix(x) %*% xxeig$vectors ## matrix multiplication
+
+```
+
+
+
+* Check that the z-data are uncorrelated
+* What is the difference between the following?
+
+
+```{r echo=TRUE, eval = FALSE}
+cor(z_mat) %>% round(6)
+```
+
+_______
+
+# Check that eigen values are indeed variances
+
+Check first column
+
+``` {r}
+
+var(z_mat[,1])   
+xxeig$values[1]      
+```
+
+* `apply()` for column  stats, such as `var`
+
+``` {r}
+
+z_mat %>% apply(2,var)   ##The "2" refers to column
+
+xxeig$values       
+```
+
+_______
+
+What should the sum of the variances for each of the principal components be?
+
+________
+# Compare the full models for PCR and regular lm 
+
+* What is the same/ different?
+
+```{r echo = TRUE}
+fitz <- lm(longley$Employed ~ z_mat)
+fit0 <- lm(Employed ~., longley)
+```
+
+```{r echo = FALSE, eval = FALSE}
+summary(fitz) 
+summary(fit0)
+```
+
+
+______________
+ Compare predicted values
+
+```{r }
+fitz %>% predict() %>% head()  # just to compare the first few
+fit0 %>% predict() %>% head()
+```
+
+_________
+# What about the variance of the coefficient estimates?
+
+* Want as proportion for comparison- _coefficient of variation_
+
+```{r}
+summary(fitz)$coefficients[,"Std. Error"]/summary(fitz)$coefficients[,"Estimate"]
+summary(fit0)$coefficients[,"Std. Error"]/summary(fit0)$coefficients[,"Estimate"]
+
+```
+
+____________
+# Which components should we include in model?
+
+* The  _percent variation explained_ of a principal component is simply the eigen value
+* We get a cumulative sum as percentage
+* Find the  percentage of the total contained in each; cumulative percentage
+* We know what we should get for the total.
+
+```{r echo = FALSE}
+total_zvar <- xxeig$values %>% sum()    
+ xxeig$values %>% cumsum()/total_zvar   ## cumulative sum divided by total
+```
+
+______
+
+Suggests we _might_  get away with using one, or two, or at most three principle components
+
+This is borne out by the performance criteria 
+
+Consider models with successive numbers of PC's. Here we try two components.
+
+
+```{r  eval = FALSE}
+fitz2 <- lm(longley$Employed ~ z_mat[,1:2])
+
+summary(fitz2)
+                
+```
+

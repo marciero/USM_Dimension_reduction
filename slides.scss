@@ -1,0 +1,171 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+// USM Brand Colors - Primary
+$usm-blue: #002752;
+$usm-gold: #F5A800;
+
+
+
+// USM Brand Colors - Secondary (from brand guidelines)
+// Use these for accent colors, highlights, and variety in visualizations
+$usm-green: #268133;  // Secondary accent color
+$usm-ltgreen: #CCDF7F;
+$usm-dkgreen: #2B3E1A;
+$usm-dkbluegreen: #012F33;
+$usm-dkblue: #0E1033;
+// Additional secondary colors can be added here as needed
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$font-family-monospace: "Source Code Pro", monospace;
+$presentation-heading-color: $usm-blue;
+$link-color: $usm-gold;
+$code-color: $usm-dkgreen;
+$background-color: #ffffff;
+$code-block-font-size: 0.7em;
+$presentation-h2-font-size: 1.4em !default;
+$presentation-font-size-root: 20px !default;
+/*-- scss:rules --*/
+
+// Make bold text use USM gold
+strong, b {
+  color: $usm-green;
+  font-weight: bold;
+}
+
+// Make italic text use USM green
+em, i {
+  color: $usm-dkbluegreen;
+  font-style: italic;
+}
+
+details>summary {
+  font-size: 0.5em;
+}
+
+#title-slide .subtitle {
+  color: $usm-gold;
+  font-weight: bold;
+  text-align: center;
+}
+
+#title-slide .title {
+  text-align: center;
+  color: #ffffff;
+}
+
+#title-slide .quarto-title-author {
+  text-align: center;
+  color: #ffffff !important;
+}
+
+#title-slide .institute {
+  color: $usm-gold;
+  text-align: center;
+  padding-bottom: 200px;
+}
+
+#title-slide .date {
+    color: $usm-gold;
+    font-size: 0.7em;
+}
+
+#title-slide {
+    background-color: $usm-blue;
+}
+
+
+
+.small {
+  font-size: 0.75em;
+}
+
+.smallest {
+  font-size: 0.5em;
+}
+
+.large {
+  font-size: 1.5em;
+}
+
+.medium {
+  font-size: 0.9em;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.reveal .hand {
+  font-family: 'Gochi Hand', cursive;
+  font-size: 1.2em
+}
+
+.reveal .slide .task {
+  padding-right: 0cappx;
+  padding-left: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  border-left: solid 5px $usm-gold;
+  background-color: rgba(245, 168, 0, 0.1);
+}
+
+.reveal pre code {
+  width: 1200px;
+}
+
+// Make plots and figures bigger
+.reveal img {
+  max-width: 95%;
+  max-height: 95%;
+}
+
+.reveal figure {
+  max-width: 95%;
+  max-height: 95%;
+}
+
+/*
+.reveal .quarto-title-block .quarto-title-authors .quarto-title-author {
+  background-color: white;
+}
+*/
+
+
+.reveal .footer {
+  color: $usm-blue;
+  text-align: left !important;
+  padding-left: 1em; /* Optional: Add some spacing from edge */
+  font-size: 0.6em;
+}
+
+.reveal .slide:first-child .footer {
+  display: none !important;
+}
+
+.reveal .slide[data-title-slide="true"] .footer {
+  display: none !important;
+}
+
+
+
+.hex-container {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-230%);
+  display: flex;
+  gap: 10px; /* Space between images */
+}
+
+.hex-sticker {
+  width: 80px; /* Adjust as needed */
+}
+
+
