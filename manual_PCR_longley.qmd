@@ -32,9 +32,9 @@ Consider the `longley` data.
 
 
 
-```{r echo = TRUE, eval = FALSE}
+```{r echo = TRUE}
 ?longley
-View(longley)
+head(longley)
 ```
 
 ## "Employed" as the response; others as predictors

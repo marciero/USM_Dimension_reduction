@@ -60,11 +60,11 @@ knitr::opts_chunk$set(
 theme_set(
   theme_minimal(base_size = 11) +
     theme(
-      plot.title   = element_text(size = 18),
+      plot.title   = element_text(size = 20),
       axis.title   = element_text(size = 16),
       axis.text    = element_text(size = 14),
-      legend.title = element_text(size = 14),
-      legend.text  = element_text(size = 14)
+      legend.title = element_text(size = 16),
+      legend.text  = element_text(size = 12)
     )
 )
 ```
@@ -294,6 +294,28 @@ These last three are **unsupervised**!
 ::::
 
 # Curse of dimensionality - simulation example
+
+[need example with cat variable lots of levels ]
+
+skimr::skim(ames)
+
+ames_prep <- recipe(Sale_Price ~ ., ames) %>%
+    step_dummy(all_nominal()) %>% 
+    prep() %>% bake(ames)
+
+skimr::skim(ames_prep)
+
+
+
+hotels <-
+    read_csv("https://tidymodels.org/start/case-study/hotels.csv") 
+
+
+hotel_prep <- recipe(children ~ ., hotels) %>%
+    step_dummy(all_nominal_predictors()) %>% 
+    prep() %>% bake(hotels)
+skimr::skim(hotel_prep)
+
 
 ## Curse of dimensionality - simple analytical example
 
@@ -540,8 +562,7 @@ cbind(preds = predict(fitZ), truth = meatspec$fat) %>% as_tibble %>% metrics(tru
 
 ## R squared vs RMSE
 
-
-![](images/performance-reg-metrics-1.png)
+![Observed versus predicted values for models that are optimized using the RMSE compared to the coefficient of determination](https://www.tmwr.org/figures/performance-reg-metrics-1.png)
 
 Source: [Tidy Modeling with R](https://www.tmwr.org/), Max Kuhn and Julia Silge, 2023
 
@@ -629,7 +650,7 @@ pca_prep <- prep(pca_rec)
 bake(pca_prep, wine) %>%
     ggplot(aes(PC1, PC2)) +
     geom_point(aes(color = as.factor(Class_label)), alpha = 0.7, size = 2) +
-theme_minimal() +
+#theme_minimal() +
   theme(legend.position = "bottom") +
   labs(title = "Wine Class; First Two Principal Components",
       color = "Wine Class") +
@@ -715,26 +736,8 @@ wine_pca$x |> head(10) %>% kable() %>%
 :::
 :::::
 
-## Visualizing the loadings
-
-Just the first PCA component
-
-```{r}
-loadings <- eigen_vecs * matrix(sqrt(eigen_vals), nrow = nrow(eigen_vecs), 
-                                ncol = ncol(eigen_vecs), byrow = TRUE)
-
-loadings_df <- data.frame(
-  Feature = colnames(wine)[-1],
-  Loading = loadings[, 1]
-)
-
-ggplot(loadings_df, aes(x = reorder(Feature, Loading), y = Loading)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  coord_flip() +
-  ylim(-1, 1) +
-  labs(y = "Loadings for PC 1", x = "") +
-  theme_minimal()
-```
+::: {.callout-warning}
+These are "unscaled" loadings and scores. The `prcomp` function in R uses scaling by default.
 
 ## Visualizing the loadings
 
@@ -759,12 +762,10 @@ tidied_pca %>%
   geom_col(fill = "steelblue", show.legend = FALSE) +
   facet_wrap(~component, nrow = 1) +
     theme(axis.text.x = element_blank()) +
-  labs(y = NULL, x = NULL) +
-    theme_minimal()
+  labs(y = NULL, x = NULL) 
 ```
 
-
-## Example: `USArrests` dataset[^2] (
+## Example: `USArrests` dataset[^2] 
 
 [^2]: Base R datasets; McNeil, D. R. (1977) Interactive Data Analysis. New York: Wiley.
 
@@ -852,8 +853,6 @@ tidied_pca %>%
   ) +
     theme(axis.text.x = element_blank())
 ```
-
-
 
 ```{r}
 arrests_prep <- pca_rec |> prep() %>% bake(USArrests)
@@ -978,7 +977,7 @@ ggpairs(penguins_filt, columns = c("bill_length_mm", "bill_depth_mm",
 
 ::::: columns
 ::: {.column width="50%"}
-![](images/mnist_extended_4_0)
+![MNIST handwritten digits](https://storage.googleapis.com/kaggle-datasets-images/6967763/11165648/7c42982e904922bea475ad399ded5ae3/dataset-cover.png?t=2025-03-25-20-33-29)
 :::
 
 ::: {.column width="50%"}
@@ -1042,15 +1041,34 @@ juice(umap_prep) %>%
 :::
 :::::
 
-## Feature extraction
+## Neural Networks for Dimension Reduction
 
-*Transforming and combining predictors to form new "features"*
+![](https://lamarr-institute.org/wp-content/uploads/deepLearn_2_EN.png){fig-alt="neural network diagaram"}
 
-# Canonical example: **Principal Components Analysis (PCA)**
+Source: [Gerhard Paab blog](https://lamarr-institute.org/blog/deep-neural-networks/)
 
--   unsupervised
--   **Partial Least Squares (PLS)** - supervised Other methods
--   Linear Discriminant Analysis (LDA)
--   t-SNE
--   UMAP
--   Autoencoders (neural networks)
+## What we covered
+
+-   **Why dimension reduction matters**
+
+    -   High-dimensional predictors and rank deficiency
+    -   Variance, multicollinearity, and computational cost
+    -   The *curse of dimensionality* (analytical + simulation intuition)
+
+-   **Two broad strategies**
+
+    -   **Feature selection**:
+    -   **Feature extraction**:
+
+-   **Principal Components Analysis (PCA)**
+
+-   **Class experiments/examples**
+
+    -   `meatspec`: PCR with many correlated predictors
+    -   `wine`: classification with few principal components
+    -   `USArrests`: interpreting loadings, scores, and biplots
+    -   `penguins`: PCA vs UMAP for visualization
+
+-   **Nonlinear dimension reduction**
+
+    -   UMAP, neural networks
