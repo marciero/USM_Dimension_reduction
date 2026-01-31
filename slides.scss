@@ -18,30 +18,18 @@ $usm-ltgreen: #CCDF7F;
 $usm-dkgreen: #2B3E1A;
 $usm-dkbluegreen: #012F33;
 $usm-dkblue: #0E1033;
-// Additional secondary colors can be added here as needed
 
 $font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
 $font-family-monospace: "Source Code Pro", monospace;
-$presentation-heading-color: $usm-blue;
-$link-color: $usm-gold;
-$code-color: $usm-dkgreen;
-$background-color: #ffffff;
+/*$presentation-heading-color: #3A5883;*/
+/* Pantone Midnight - Fall 2022 */
+$link-color: #00aeef;
+$code-color: #6d276a;
+$background-color: #e8d3d3;
 $code-block-font-size: 0.7em;
-$presentation-h2-font-size: 1.5em !default;
-$presentation-font-size-root: 25px !default;
+$presentation-h2-font-size: 1.4em !default;
+$presentation-font-size-root: 28px !default;
 /*-- scss:rules --*/
-
-// Make bold text use USM gold
-strong, b {
-  color: $usm-green;
-  font-weight: bold;
-}
-
-// Make italic text use USM green
-em, i {
-  color: $usm-dkbluegreen;
-  font-style: italic;
-}
 
 details>summary {
   font-size: 0.5em;
@@ -50,12 +38,13 @@ details>summary {
 #title-slide .subtitle {
   color: $usm-gold;
   font-weight: bold;
+  font-size: 1.5em;
   text-align: center;
 }
 
 #title-slide .title {
   text-align: center;
-  color: #ffffff;
+  color: $usm-gold;
 }
 
 #title-slide .quarto-title-author {
@@ -64,21 +53,37 @@ details>summary {
 }
 
 #title-slide .institute {
-  color: $usm-gold;
+  color: #9fa1a4;
   text-align: center;
   padding-bottom: 200px;
 }
 
 #title-slide .date {
-    color: $usm-gold;
+    color: #9fa1a4;
     font-size: 0.7em;
+    /* or any other color you'd like */
 }
 
+/* Background color set in YAML with title-slide-attributes */
+/*
 #title-slide {
-    background-color: $usm-blue;
+    background-color: #163e70;
+}
+*/
+
+/* for forcing text color in various elements */
+.text-gold {
+  color: $usm-gold !important;
 }
 
+.reveal h1 {
+  color: $usm-gold; // or any color you prefer
+}
 
+.reveal h2 {
+  color: $usm-dkgreen; // or any color you prefer
+  font-size: 1.75em;
+}
 
 .small {
   font-size: 0.75em;
@@ -112,23 +117,12 @@ details>summary {
   padding-bottom: 3px;
   margin-bottom: 6px;
   margin-top: 6px;
-  border-left: solid 5px $usm-gold;
-  background-color: rgba(245, 168, 0, 0.1);
+  border-left: solid 0px #F1DE67;
+  background-color: #F1DE6750;
 }
 
 .reveal pre code {
   width: 1200px;
-}
-
-// Make plots and figures bigger
-.reveal img {
-  max-width: 95%;
-  max-height: 95%;
-}
-
-.reveal figure {
-  max-width: 95%;
-  max-height: 95%;
 }
 
 /*
@@ -139,10 +133,10 @@ details>summary {
 
 
 .reveal .footer {
-  color: $usm-blue;
+  color: #866fa3;
+  /* background-color: white; */
   text-align: left !important;
   padding-left: 1em; /* Optional: Add some spacing from edge */
-  font-size: 0.6em;
 }
 
 .reveal .slide:first-child .footer {
@@ -153,7 +147,16 @@ details>summary {
   display: none !important;
 }
 
+strong, b {
+  color: $usm-gold;   
+}
 
+
+// Make italic text use USM green
+em, i {
+  color: $usm-dkbluegreen;
+  font-style: italic;
+}
 
 .hex-container {
   position: absolute;

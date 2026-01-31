@@ -34,7 +34,7 @@ XXeig$values[1]/XXeig$values[100]
 
 ## We find the cumulative percent variation in the components as in class
 total_XXvar <- XXeig$values %>% sum()
-XXeig$values %>% cumsum()/total_XXvar %>% head()
+XXeig$values %>% cumsum()/total_XXvar
 
 ## It looks like n = 8 components to get 100% to five decimal places.
 
@@ -52,3 +52,6 @@ sqrt(sum((meatspec$fat - preds)^2)/215)
 # of predictive performance. It's really a correlation. Generally, rmse will be preferred. Also, we really want to be using training and test splits.
 
 ## You can try the above using eigenvalues of the correlation matrix instead.
+
+
+
