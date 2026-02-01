@@ -933,29 +933,20 @@ See my slides source code as well as example R and ipynb files for example code.
 -   **Why dimension reduction matters**
 
     -   High-dimensional predictors and rank deficiency
-    -   Variance, multicollinearity, and computational cost
+    -   Variance, multicollinearity, interpretability, computational cost
     -   The *curse of dimensionality* (analytical + simulation intuition)
 
--   **Two broad strategies**
-
-    -   **Feature selection**:
-    -   **Feature extraction**:
+-   **Feature selection, engineering, extraction**
 
 -   **Principal Components Analysis (PCA)**
 
-    -   Mathematical basis - eigenvectors and eigenvalues
+    -   Mathematics; eigenvectors and eigenvalues
     -   Principal components regression (PCR)
-    -   Interpreting loadings, scores, and biplots
+    -   PCA loadings and scores
 
 -   **Nonlinear dimension reduction**
 
     -   UMAP, neural networks
 
-    -   Viz examples, no theory
 
--   **Class experiments/examples**
 
-    -   `meatspec`: manual PCR with many correlated predictors
-    -   curse of dimanensionality simulation
-    -   `USArrests`: correlation matrix vs $X^TX$ eigen decomp
-    -   `penguins`: PCA vs UMAP for visualization
