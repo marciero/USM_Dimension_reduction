@@ -80,7 +80,8 @@ theme_set(
 
 - [Colab notebooks](https://drive.google.com/drive/folders/18yDv-ZO1pgPc1XvatsoHW1OkM6Q1RWVU?usp=sharing)
 
-- [R Posit Cloud R project](https://positcloud.com/marciero/projects)
+
+- [R Posit Cloud R project](https://posit.cloud/spaces/748394/join?access_code=K0PlPFgSdXozncr1ORvhErlNN00agkyp_ZR9IXSM)
 
 
 # What is Dimension Reduction?
