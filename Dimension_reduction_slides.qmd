@@ -7,7 +7,7 @@ title-slide-attributes:
   data-background-color: "#002752"
 format: 
     revealjs:
-        footer: "Dimension Reduction/USM 2026-02-03"
+        footer: "Dimension Reduction/USM 2026-02-04"
         html-math-method: mathjax
         slide-number: true
         menu: false
@@ -70,6 +70,18 @@ theme_set(
     )
 )
 ```
+
+## Class resources 
+
+
+<br>
+
+- [Github repo Dimension reduction](https://github.com/marciero/USM_Dimension_reduction.git)
+
+- [Colab notebooks](https://drive.google.com/drive/folders/18yDv-ZO1pgPc1XvatsoHW1OkM6Q1RWVU?usp=sharing)
+
+- [R Posit Cloud R project](https://positcloud.com/marciero/projects)
+
 
 # What is Dimension Reduction?
 
@@ -260,6 +272,10 @@ More generally, can we transform and combine predictors in various ways to form 
 :::
 ::::
 
+## The goal of dimension reduction 
+
+
+
 ## Why do dimension reduction? {.incremental}
 
 ::: incremental
@@ -345,7 +361,7 @@ We are using the $L_{\infty}$ norm (max norm) to define neighborhood here, but a
 
 **Feature extraction**
 
--   create a smaller set of features from the existing that capture the "information in the original predictors
+-   create a lower dimensional representation that is structurally similar to the original predictors
 
 # Principal Components Analysis (PCA) {.small}
 
@@ -732,9 +748,28 @@ arrests_prep %>%
   labs(color = NULL)
 ```
 
+## Other matrix factorizations for feature extraction 
+
+-   Non-negative Matrix Factorization (NNMF)
+
+-   Independent Component Analysis (ICA)
+
+
 # Non-linear dimension reduction
 
-Manifold learning
+## Uniform manifold approximation and projection (UMAP)
+
+<br> 
+
+- [McInnes, L., Healy, J., & Melville, J. (2018)](https://arxiv.org/abs/1802.03426)
+
+- UMAP python package: [umap-learn](https://umap-learn.readthedocs.io/en/latest/)
+
+- R package: [`umap`](https://cran.r-project.org/web/packages/umap/index.html), can use `tidymodels` `recipes` step.
+
+<br>
+
+Constructs a graph representation of the data in high dimensions, then optimizes a low-dimensional graph to be as structurally similar as possible.
 
 ## Uniform manifold approximation and projection (UMAP)
 
@@ -889,20 +924,31 @@ umap_mnist %>%
 :::
 :::::
 
+## UMAP main hyperparameters {.incremental}
+
+<br>
+
+-   `n_neighbors` - number of neighboring points used in local approximations.
+
+-   `min_dist` - minimum distance between points in low-dimensional space
+
+
+These control the balance between local and global structure in the data.
+
 ## More on UMAP
 
 -   [`umap-learn`](https://umap-learn.readthedocs.io/en/latest/) docs
+
 -   A Coenen, A. Pearce blog [Understanding UMAP](https://pair-code.github.io/understanding-umap/)
 
-## Other manifold learning
+## Comparing PCA, UMAP, and t-SNE 
 
-## Other manifold learning methods {.incremental}
+![](images/PCA_UMAP_t-SNE.png){}
+Source: [Biostatsquid](https://biostatsquid.com/pca-umap-tsne-comparison/)
 
--   t-SNE - t-distributed stochastic neighbor embedding (only used for viz)
--   Isomap
--   Locally Linear Embedding (LLE)
--   ...
--   **neural networks/deep learning**
+# Neural Networks 
+
+![](images/elephant-in-room.jpg){}
 
 ## Neural Networks
 

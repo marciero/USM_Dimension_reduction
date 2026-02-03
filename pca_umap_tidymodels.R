@@ -1,5 +1,5 @@
-library(tidyverse)
-library(tidymodels)
+library(tidyverse)  ## install.packages("tidyverse") if needed
+library(tidymodels)  ## install.packages("tidymodels") if needed
 
 ## PCA using `prcomp()` and `recipes` package
 

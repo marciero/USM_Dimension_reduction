@@ -1,6 +1,6 @@
-library(tidyverse)
-library(faraway)
-library(tidymodels)
+library(tidyverse)  ## install.packages("tidyverse") if needed
+library(faraway)    ## install.packages("faraway") if needed. gives us the data set
+library(tidymodels)  ## install.packages("tidymodels") if needed
 
 ## "Manual" PCR example using meatspec data from faraway package.
 # You can find information on the data set executing the following

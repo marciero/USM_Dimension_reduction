@@ -5,7 +5,7 @@ USArrests
 
 eigen(cor(USArrests))
 
-x<- as.matrix(USArrests) %>% scale()
+x <- scale(as.matrix(USArrests))
 
 XX <- t(x) %*% x
 
